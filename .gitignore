@@ -1,0 +1,71 @@
+# Flutter/Dart/Pub related
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+flutter_*.png
+generated_plugin_registrant.dart
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/app/debug
+**/android/app/profile
+**/android/app/release
+
+# iOS related
+**/ios/Flutter/.last_build_id
+**/ios/Pods
+**/ios/.symlinks
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Xcode
+**/ios/Runner.xcworkspace/
+**/ios/xcuserdata/
+**/ios/DerivedData/
+**/ios/*.xcuserstate
+
+# macOS
+**/macos/Flutter/ephemeral/
+**/macos/Pods
+**/macos/Runner/GeneratedPluginRegistrant.swift
+**/macos/Runner.xcworkspace/
+**/macos/xcuserdata/
+**/macos/DerivedData/
+
+# Windows
+**/windows/flutter/ephemeral/
+**/windows/Runner/GeneratedPluginRegistrant.*
+
+# Linux
+**/linux/flutter/ephemeral/
+**/linux/Runner/GeneratedPluginRegistrant.*
+
+# Web
+**/web/.dart_tool/
+
+# VS Code
+.vscode/
+.idea/
+*.iml
+
+# Misc
+*.lock
+*.log
+*.tmp
+*.swp
+*.DS_Store
+
+# Firebase/Google configs (giữ cẩn thận, chỉ bỏ ignore nếu cần đẩy lên)
+# google-services.json
+# GoogleService-Info.plist
