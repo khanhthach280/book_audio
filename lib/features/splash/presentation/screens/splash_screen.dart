@@ -25,7 +25,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   @override
   void initState() {
     super.initState();
-    print('======= check 1');
     _setupAnimations();
     _startAnimations();
   }
@@ -59,7 +58,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   }
   
   void _startAnimations() async {
-    print('======= check 2');
     await _logoController.forward();
     await Future.delayed(const Duration(milliseconds: 200));
     await _textController.forward();
@@ -68,7 +66,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     await Future.delayed(const Duration(milliseconds: 1000));
     
     if (mounted) {
-      print('===== check 3');
       _navigateToNextScreen();
     }
   }
@@ -77,9 +74,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     if (_hasNavigated) return; // Prevent multiple navigations
     _hasNavigated = true;
     
-    print('===== check 4');
     final authState = ref.read(authStateProvider);
-    print('====== check 5');
     
     if (authState.isAuthenticated) {
       context.go('/home');

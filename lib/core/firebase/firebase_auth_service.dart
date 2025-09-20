@@ -22,10 +22,8 @@ class FirebaseAuthService {
     required String email,
     required String password,
   }) async {
-    print('========= signInWithEmailAndPassword');
 
     try {
-      print('========= signInWithEmailAndPassword 1');
 
       final firebase_auth.UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
@@ -33,25 +31,19 @@ class FirebaseAuthService {
       );
       
       if (userCredential.user == null) {
-        print('========= user == null');
         throw const AuthException(
           message: 'Sign in failed',
           code: 'SIGN_IN_FAILED',
         );
       }
-
-      print('========= user != null: ${userCredential.user?.email}');
       
       // Get user data from Firestore
       final userData = await _getUserData(userCredential.user!.uid);
-      print("========= userData: ${userData.email}");
       return userData;
       
     } on firebase_auth.FirebaseAuthException catch (e) {
-      print('==== FirebaseAuthException');
       throw _handleFirebaseAuthException(e);
     } catch (e) {
-      print('==== FirebaseAuthException 2: $e');
       throw AuthException(
         message: 'An unexpected error occurred: $e',
         code: 'UNKNOWN_ERROR',
@@ -122,7 +114,6 @@ class FirebaseAuthService {
       
       return await _getUserData(user.uid);
     } catch (e) {
-      print('========= getCurrentUserData error: $e, falling back to Firebase Auth user');
       // Fallback: Create user data from Firebase Auth user
       final user = currentUser;
       if (user == null) return null;
@@ -185,7 +176,6 @@ class FirebaseAuthService {
       
       if (!doc.exists) {
         // Fallback: Create user data from Firebase Auth user
-        print('========= Firestore document not found, creating from Firebase Auth user');
         return _createUserFromFirebaseAuth(uid);
       }
       
@@ -201,7 +191,6 @@ class FirebaseAuthService {
         'updatedAt': data['updatedAt']?.toDate(),
       });
     } catch (e) {
-      print('========= Firestore error: $e, falling back to Firebase Auth user');
       // Fallback: Create user data from Firebase Auth user
       return _createUserFromFirebaseAuth(uid);
     }

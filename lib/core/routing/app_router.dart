@@ -4,6 +4,7 @@ import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/signup_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
+import '../../features/settings/presentation/screens/settings_screen.dart';
 import '../../features/auth/presentation/providers/auth_providers.dart';
 
 /// App router configuration
@@ -38,6 +39,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: 'home',
         builder: (context, state) => const HomeScreen(),
       ),
+      
+      // Settings route
+      GoRoute(
+        path: '/settings',
+        name: 'settings',
+        builder: (context, state) => const SettingsScreen(),
+      ),
     ],
     redirect: (context, state) {
       final authState = ref.read(authStateProvider);
@@ -54,7 +62,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       }
       
       // If not authenticated and trying to access protected pages, redirect to login
-      if (!isAuthenticated && currentPath == '/home') {
+      if (!isAuthenticated && (currentPath == '/home' || currentPath == '/settings')) {
         return '/login';
       }
       

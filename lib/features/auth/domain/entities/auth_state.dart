@@ -55,7 +55,6 @@ class AuthState extends Equatable {
   
   /// Set unauthenticated state
   AuthState setUnauthenticated() {
-    print('======== setUnauthenticated');
     return const AuthState(
       user: null,
       isAuthenticated: false,

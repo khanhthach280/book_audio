@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/app/app.dart';
 import 'core/di/providers.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'core/firebase/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

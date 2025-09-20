@@ -35,8 +35,6 @@ class AuthRepositoryImpl implements AuthRepository {
           ),
         );
       }
-
-      print('======== _firebaseAuthService.signInWithEmailAndPassword');
       
       // Sign in with Firebase
       final userModel = await _firebaseAuthService.signInWithEmailAndPassword(

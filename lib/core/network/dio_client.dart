@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import '../constants/app_constants.dart';
 import '../errors/exceptions.dart';
+import '../utils/error_message_service.dart';
 
 /// Dio client configuration for API calls
 class DioClient {
@@ -70,14 +71,14 @@ class _ErrorInterceptor extends Interceptor {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
-        exception = const TimeoutException(
-          message: 'Request timeout. Please try again.',
+        exception = TimeoutException(
+          message: ErrorMessageService.getErrorMessage('TimeoutFailure'),
           code: 'TIMEOUT',
         );
         break;
       case DioExceptionType.connectionError:
-        exception = const NoInternetException(
-          message: 'No internet connection. Please check your network.',
+        exception = NoInternetException(
+          message: ErrorMessageService.getErrorMessage('NoInternetFailure'),
           code: 'NO_INTERNET',
         );
         break;
@@ -86,30 +87,30 @@ class _ErrorInterceptor extends Interceptor {
         if (statusCode != null) {
           if (statusCode >= 500) {
             exception = ServerException(
-              message: 'Server error. Please try again later.',
+              message: ErrorMessageService.getErrorMessage('ServerFailure'),
               code: statusCode.toString(),
             );
           } else if (statusCode == 401) {
-            exception = const InvalidCredentialsException(
-              message: 'Invalid credentials. Please check your login details.',
+            exception = InvalidCredentialsException(
+              message: ErrorMessageService.getErrorMessage('InvalidCredentialsFailure'),
               code: '401',
             );
           } else {
             exception = NetworkException(
-              message: 'Network error. Please try again.',
+              message: ErrorMessageService.getErrorMessage('NetworkFailure'),
               code: statusCode.toString(),
             );
           }
         } else {
-          exception = const NetworkException(
-            message: 'Network error. Please try again.',
+          exception = NetworkException(
+            message: ErrorMessageService.getErrorMessage('NetworkFailure'),
             code: 'UNKNOWN',
           );
         }
         break;
       default:
-        exception = const UnknownException(
-          message: 'An unexpected error occurred. Please try again.',
+        exception = UnknownException(
+          message: ErrorMessageService.getErrorMessage('UnknownFailure'),
           code: 'UNKNOWN',
         );
     }

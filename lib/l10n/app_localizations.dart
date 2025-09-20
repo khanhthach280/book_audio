@@ -95,6 +95,9 @@ class AppLocalizations {
       'myPlaylists': 'My Playlists',
       'publicPlaylists': 'Public Playlists',
       'privatePlaylists': 'Private Playlists',
+      'account': 'Account',
+      'signOutOfAccount': 'Sign out of your account',
+      'areYouSureLogout': 'Are you sure you want to sign out?',
     },
     'vi': {
       'appTitle': 'Sách Nói',
@@ -173,6 +176,9 @@ class AppLocalizations {
       'myPlaylists': 'Danh sách phát của tôi',
       'publicPlaylists': 'Danh sách phát công khai',
       'privatePlaylists': 'Danh sách phát riêng tư',
+      'account': 'Tài khoản',
+      'signOutOfAccount': 'Đăng xuất khỏi tài khoản của bạn',
+      'areYouSureLogout': 'Bạn có chắc chắn muốn đăng xuất không?',
     },
   };
   
@@ -258,6 +264,9 @@ class AppLocalizations {
   String get myPlaylists => _getText('myPlaylists');
   String get publicPlaylists => _getText('publicPlaylists');
   String get privatePlaylists => _getText('privatePlaylists');
+  String get account => _getText('account');
+  String get signOutOfAccount => _getText('signOutOfAccount');
+  String get areYouSureLogout => _getText('areYouSureLogout');
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

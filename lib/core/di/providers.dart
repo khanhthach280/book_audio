@@ -44,7 +44,6 @@ final networkInfoProvider = Provider<NetworkInfo>((ref) {
 
 /// Firebase Auth Service provider
 final firebaseAuthServiceProvider = Provider<FirebaseAuthService>((ref) {
-  print('========= firebaseAuthServiceProvider');
   return FirebaseAuthService();
 });
 

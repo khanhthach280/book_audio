@@ -1,5 +1,5 @@
+import 'package:book_audio/core/firebase/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
 /// Firebase service for initializing Firebase
 class FirebaseService {

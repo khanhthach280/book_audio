@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../errors/failures.dart';
 import '../theme/app_colors.dart';
+import '../../l10n/app_localizations.dart';
+import 'error_message_service.dart';
 
 /// Error handler utility class
 class ErrorHandler {
@@ -80,37 +82,21 @@ class ErrorHandler {
     );
   }
   
-  /// Get error message from failure
-  static String getErrorMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case NoInternetFailure:
-        return 'No internet connection. Please check your network.';
-      case NetworkFailure:
-        return 'Network error. Please try again.';
-      case ServerFailure:
-        return 'Server error. Please try again later.';
-      case TimeoutFailure:
-        return 'Request timeout. Please try again.';
-      case InvalidCredentialsFailure:
-        return 'Invalid credentials. Please check your login details. ===== khanh 1';
-      case AuthFailure:
-        return 'Authentication failed. Please try again';
-      case LocalStorageFailure:
-        return 'Failed to save data locally.';
-      case CacheFailure:
-        return 'Failed to cache data.';
-      default:
-        return failure.message ?? 'An unexpected error occurred.';
-    }
+  /// Get error message from failure with localization
+  static String getErrorMessage(BuildContext context, Failure failure) {
+    // Initialize ErrorMessageService with current context
+    ErrorMessageService.initialize(AppLocalizations.of(context));
+    
+    // Get localized message using ErrorMessageService
+    return ErrorMessageService.getErrorMessage(failure.runtimeType.toString());
   }
   
-  /// Get localized error message
+  /// Get localized error message (alias for getErrorMessage)
   static String getLocalizedErrorMessage(
     BuildContext context,
     Failure failure,
   ) {
-    // This would typically use localization
-    return getErrorMessage(failure);
+    return getErrorMessage(context, failure);
   }
 }
 

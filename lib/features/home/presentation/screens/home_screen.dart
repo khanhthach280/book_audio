@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/theme_provider.dart';
-import '../../../../core/utils/locale_provider.dart';
 import '../../../../shared/widgets/book_card.dart';
 import '../../../../shared/widgets/loading_indicator.dart';
 import '../../../../shared/widgets/error_widget.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../auth/presentation/providers/auth_providers.dart';
 import '../providers/books_provider.dart';
 
 /// Home screen widget
@@ -35,6 +32,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   void _onScroll() {
+    
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent * 0.8) {
       ref.read(booksProvider.notifier).loadMoreBooks();
@@ -48,45 +46,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final booksState = ref.watch(booksProvider);
-    // final locale = ref.watch(localeProvider);
     final l10n = AppLocalizations.of(context);
-
-    void handleLogout() async {
-      await ref.read(authStateProvider.notifier).logout();
-
-      if (mounted) {
-        print('========== _handleLogout()');
-        final authState = ref.read(authStateProvider);
-        print('======== ${authState.isAuthenticated}');
-        if (!authState.isAuthenticated) {
-          // ignore: use_build_context_synchronously
-          context.go('/splash');
-        }
-      }
-    }
 
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.home),
         actions: [
-          // Theme toggle
+          // Settings
           IconButton(
-            icon: const Icon(Icons.brightness_6),
+            icon: const Icon(Icons.settings),
             onPressed: () {
-              ref.read(themeModeProvider.notifier).toggleTheme();
+              context.push('/settings');
             },
-          ),
-          // Language toggle
-          IconButton(
-            icon: const Icon(Icons.language),
-            onPressed: () {
-              ref.read(localeProvider.notifier).toggleLanguage();
-            },
-          ),
-          // Logout
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: handleLogout,
           ),
         ],
       ),

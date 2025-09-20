@@ -6,6 +6,7 @@ import '../theme/theme_provider.dart';
 import '../utils/locale_provider.dart';
 import '../routing/app_router.dart';
 import '../../l10n/app_localizations.dart';
+import '../utils/error_message_service.dart';
 
 /// Main app widget
 class App extends ConsumerWidget {
@@ -41,6 +42,17 @@ class App extends ConsumerWidget {
       
       // Router configuration
       routerConfig: router,
+      
+      // Initialize ErrorMessageService when app builds
+      builder: (context, child) {
+        // Initialize ErrorMessageService with current localizations
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (context.mounted) {
+            ErrorMessageService.initialize(AppLocalizations.of(context));
+          }
+        });
+        return child ?? const SizedBox.shrink();
+      },
     );
   }
 }

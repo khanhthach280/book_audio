@@ -4,6 +4,8 @@ import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/di/providers.dart';
+import '../../../../core/utils/error_handler.dart';
+import '../../../../core/utils/error_message_service.dart';
 
 /// Auth state provider
 final authStateProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
@@ -20,7 +22,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
   
   /// Check authentication status on app start
   Future<void> _checkAuthStatus() async {
-    print('========= _checkAuthStatus');
     state = state.setLoading(true);
     
     try {
@@ -31,11 +32,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
           
           state = state.setAuthenticated(result.user!);
         } else {
-          print('======== result.user == null');
           state = state.setUnauthenticated();
         }
       } else {
-        print('======== isNotAuthenticated');
         state = state.setUnauthenticated();
       }
     } catch (e) {
@@ -49,7 +48,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required String password,
   }) async {
 
-    print('======== login');
     state = state.setLoading(true).clearError();
     
     try {
@@ -57,8 +55,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
         email: email,
         password: password,
       );
-
-      print('============== result.user ${result.user}');
       
       if (result.user != null) {
         state = state.setAuthenticated(result.user!);
@@ -121,14 +117,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
   
   /// Logout current user
   Future<void> logout() async {
-
-    print("======= logout");
     state = state.setLoading(true);
     
     try {
       final result = await _authRepository.logout();
       if (result.success) {
-        print('============= logout success');
         state = state.setUnauthenticated();
       } else if (result.failure != null) {
         state = state.setError(_getErrorMessage(result.failure!));
@@ -142,32 +135,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
   
   /// Clear error state
   void clearError() {
-    print('====== clearError');
     state = state.clearError();
   }
   
-  /// Get error message from failure
+  /// Get error message from failure using ErrorMessageService
   String _getErrorMessage(Failure failure) {
-
-    print('========= _getErrorMessage ${failure.runtimeType}');
-    switch (failure.runtimeType) {
-      case NoInternetFailure:
-        return 'No internet connection. Please check your network.';
-      case NetworkFailure:
-        return 'Network error. Please try again.';
-      case ServerFailure:
-        return 'Server error. Please try again later.';
-      case TimeoutFailure:
-        return 'Request timeout. Please try again.';
-      case InvalidCredentialsFailure:
-        return 'Invalid credentials. Please check your login details. ====== khanh 2';
-      case AuthFailure:
-        return 'Authentication failed. Please try again. =======';
-      case LocalStorageFailure:
-        return 'Failed to save data locally.';
-      default:
-        return failure.message ?? 'An unexpected error occurred.';
-    }
+    
+    // Use ErrorMessageService for centralized error handling
+    return ErrorMessageService.getErrorMessage(failure.runtimeType.toString());
   }
 }
 

@@ -30,20 +30,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   void _handleLogin() async {
     if (_formKey.currentState?.validate() ?? false) {
-      print('========== _handleLogin()');
       await ref
           .read(authStateProvider.notifier)
           .login(
             email: _emailController.text.trim(),
             password: _passwordController.text,
           );
-      print('========== _handleLogin() 2');
       // Check if login was successful and navigate
       if (mounted) {
-        print('========== _handleLogin() 3');
         final authState = ref.read(authStateProvider);
         if (authState.isAuthenticated) {
-          print('========== _handleLogin() 4');
           context.go('/home');
         } else {
           ScaffoldMessenger.of(context).showSnackBar(

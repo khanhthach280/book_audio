@@ -1,1 +1,41 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"flutter-firebase-auth-e2d0d","appId":"1:862048823819:android:a306905744670d3f17f50e","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"flutter-firebase-auth-e2d0d","appId":"1:862048823819:ios:ad4f7ca2acf3fa2117f50e","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"macos":{"default":{"projectId":"flutter-firebase-auth-e2d0d","appId":"1:862048823819:ios:ad4f7ca2acf3fa2117f50e","uploadDebugSymbols":false,"fileOutput":"macos/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"flutter-firebase-auth-e2d0d","configurations":{"android":"1:862048823819:android:a306905744670d3f17f50e","ios":"1:862048823819:ios:ad4f7ca2acf3fa2117f50e","macos":"1:862048823819:ios:ad4f7ca2acf3fa2117f50e","web":"1:862048823819:web:a79e9584ced3551117f50e","windows":"1:862048823819:web:5477c99a5b35d58017f50e"}}}}}}
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "flutter-firebase-auth-e2d0d",
+                    "appId": "1:862048823819:android:a306905744670d3f17f50e",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "ios": {
+                "default": {
+                    "projectId": "flutter-firebase-auth-e2d0d",
+                    "appId": "1:862048823819:ios:ad4f7ca2acf3fa2117f50e",
+                    "uploadDebugSymbols": false,
+                    "fileOutput": "ios/Runner/GoogleService-Info.plist"
+                }
+            },
+            "macos": {
+                "default": {
+                    "projectId": "flutter-firebase-auth-e2d0d",
+                    "appId": "1:862048823819:ios:ad4f7ca2acf3fa2117f50e",
+                    "uploadDebugSymbols": false,
+                    "fileOutput": "macos/Runner/GoogleService-Info.plist"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "flutter-firebase-auth-e2d0d",
+                    "configurations": {
+                        "android": "1:862048823819:android:a306905744670d3f17f50e",
+                        "ios": "1:862048823819:ios:ad4f7ca2acf3fa2117f50e",
+                        "macos": "1:862048823819:ios:ad4f7ca2acf3fa2117f50e",
+                        "web": "1:862048823819:web:a79e9584ced3551117f50e",
+                        "windows": "1:862048823819:web:5477c99a5b35d58017f50e"
+                    }
+                }
+            }
+        }
+    }
+}
