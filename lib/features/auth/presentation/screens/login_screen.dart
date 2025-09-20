@@ -10,7 +10,7 @@ import '../providers/auth_providers.dart';
 /// Login screen widget
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
-  
+
   @override
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
@@ -20,21 +20,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
-  
+
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
-  
+
   void _handleLogin() async {
     if (_formKey.currentState?.validate() ?? false) {
       print('========== _handleLogin()');
-      await ref.read(authStateProvider.notifier).login(
-        email: _emailController.text.trim(),
-        password: _passwordController.text,
-      );
+      await ref
+          .read(authStateProvider.notifier)
+          .login(
+            email: _emailController.text.trim(),
+            password: _passwordController.text,
+          );
       print('========== _handleLogin() 2');
       // Check if login was successful and navigate
       if (mounted) {
@@ -43,30 +45,29 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         if (authState.isAuthenticated) {
           print('========== _handleLogin() 4');
           context.go('/home');
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(authState.error!),
+              backgroundColor: AppColors.error,
+              duration: const Duration(seconds: 3),
+            ),
+          );
+          // Clear error after showing
+          Future.delayed(const Duration(milliseconds: 100), () {
+            ref.read(authStateProvider.notifier).clearError();
+          });
         }
       }
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authStateProvider);
     // final locale = ref.watch(localeProvider);
     final l10n = AppLocalizations.of(context);
-    
-    // Listen to auth state changes for error handling only
-    ref.listen(authStateProvider, (previous, next) {
-      if (next.error != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(next.error!),
-            backgroundColor: AppColors.error,
-          ),
-        );
-        ref.read(authStateProvider.notifier).clearError();
-      }
-    });
-    
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -99,9 +100,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       color: AppColors.white,
                     ),
                   ),
-                  
+
                   const SizedBox(height: 32),
-                  
+
                   // Welcome Text
                   Text(
                     l10n.welcome,
@@ -110,19 +111,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  
+
                   const SizedBox(height: 8),
-                  
+
                   Text(
                     l10n.login,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: AppColors.grey,
-                    ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleLarge?.copyWith(color: AppColors.grey),
                     textAlign: TextAlign.center,
                   ),
-                  
+
                   const SizedBox(height: 48),
-                  
+
                   // Email Field
                   CustomTextField(
                     controller: _emailController,
@@ -133,15 +134,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       if (value == null || value.isEmpty) {
                         return l10n.emailRequired;
                       }
-                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                      if (!RegExp(
+                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      ).hasMatch(value)) {
                         return l10n.invalidEmail;
                       }
                       return null;
                     },
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Password Field
                   CustomTextField(
                     controller: _passwordController,
@@ -150,7 +153,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     prefixIcon: Icons.lock_outlined,
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                        _obscurePassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                       onPressed: () {
                         setState(() {
@@ -168,9 +173,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       return null;
                     },
                   ),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Login Button
                   LoadingButton(
                     onPressed: _handleLogin,
@@ -183,9 +188,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Forgot Password
                   TextButton(
                     onPressed: () {
@@ -193,9 +198,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     },
                     child: Text(l10n.forgotPassword),
                   ),
-                  
+
                   const SizedBox(height: 32),
-                  
+
                   // Sign Up Link
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

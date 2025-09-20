@@ -58,7 +58,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         password: password,
       );
 
-      print('============== ${result.user}');
+      print('============== result.user ${result.user}');
       
       if (result.user != null) {
         state = state.setAuthenticated(result.user!);
@@ -142,13 +142,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
   
   /// Clear error state
   void clearError() {
+    print('====== clearError');
     state = state.clearError();
   }
   
   /// Get error message from failure
   String _getErrorMessage(Failure failure) {
 
-    print('========= _getErrorMessage');
+    print('========= _getErrorMessage ${failure.runtimeType}');
     switch (failure.runtimeType) {
       case NoInternetFailure:
         return 'No internet connection. Please check your network.';
@@ -159,7 +160,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       case TimeoutFailure:
         return 'Request timeout. Please try again.';
       case InvalidCredentialsFailure:
-        return 'Invalid credentials. Please check your login details.';
+        return 'Invalid credentials. Please check your login details. ====== khanh 2';
       case AuthFailure:
         return 'Authentication failed. Please try again. =======';
       case LocalStorageFailure:
