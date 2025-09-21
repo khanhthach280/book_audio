@@ -69,6 +69,10 @@ class AppLocalizations {
       'passwordsDoNotMatch': 'Passwords do not match',
       'splashScreen': 'Splash Screen',
       'checkingAuth': 'Checking authentication...',
+      'checkingConnection': 'Checking internet connection...',
+      'noInternetConnection': 'No Internet Connection',
+      'checkConnectionAndRetry': 'Please check your internet connection and try again',
+      'retryConnection': 'Retry',
       'books': 'Books',
       'audioBooks': 'Audio Books',
       'favorites': 'Favorites',
@@ -110,6 +114,7 @@ class AppLocalizations {
       'themeMode': 'Theme Mode',
       'colorScheme': 'Color Scheme',
       'predefinedColorThemes': 'Predefined Color Themes',
+      'customMode': 'Custom Mode',
     },
     'vi': {
       'appTitle': 'Sách Nói',
@@ -162,6 +167,10 @@ class AppLocalizations {
       'passwordsDoNotMatch': 'Mật khẩu không khớp',
       'splashScreen': 'Màn hình khởi động',
       'checkingAuth': 'Đang kiểm tra xác thực...',
+      'checkingConnection': 'Đang kiểm tra kết nối internet...',
+      'noInternetConnection': 'Không có kết nối Internet',
+      'checkConnectionAndRetry': 'Vui lòng kiểm tra kết nối internet và thử lại',
+      'retryConnection': 'Thử lại',
       'books': 'Sách',
       'audioBooks': 'Sách nói',
       'favorites': 'Yêu thích',
@@ -203,6 +212,7 @@ class AppLocalizations {
       'themeMode': 'Chế độ giao diện',
       'colorScheme': 'Bộ màu',
       'predefinedColorThemes': 'Chủ đề màu có sẵn',
+      'customMode': 'Chế độ tùy chỉnh',
     },
   };
   
@@ -262,6 +272,10 @@ class AppLocalizations {
   String get passwordsDoNotMatch => _getText('passwordsDoNotMatch');
   String get splashScreen => _getText('splashScreen');
   String get checkingAuth => _getText('checkingAuth');
+  String get checkingConnection => _getText('checkingConnection');
+  String get noInternetConnection => _getText('noInternetConnection');
+  String get checkConnectionAndRetry => _getText('checkConnectionAndRetry');
+  String get retryConnection => _getText('retryConnection');
   String get books => _getText('books');
   String get audioBooks => _getText('audioBooks');
   String get favorites => _getText('favorites');
@@ -303,6 +317,7 @@ class AppLocalizations {
   String get themeMode => _getText('themeMode');
   String get colorScheme => _getText('colorScheme');
   String get predefinedColorThemes => _getText('predefinedColorThemes');
+  String get customMode => _getText('customMode');
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

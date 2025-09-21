@@ -131,7 +131,7 @@ class SettingsScreen extends ConsumerWidget {
       case ThemeMode.dark:
         return l10n.darkMode;
       case ThemeMode.system:
-        return l10n.systemMode;
+        return l10n.customMode;
     }
   }
 
@@ -191,8 +191,8 @@ class SettingsScreen extends ConsumerWidget {
                       },
                     ),
                     RadioListTile<ThemeMode>(
-                      title: Text(l10n.systemMode),
-                      value: ThemeMode.system,
+                      title: Text(l10n.customMode),
+                      value: ThemeMode.system, // Sử dụng system để đánh dấu custom mode
                       groupValue: themeMode,
                       onChanged: (value) {
                         if (value != null) {
@@ -201,18 +201,20 @@ class SettingsScreen extends ConsumerWidget {
                       },
                     ),
                 
-                const SizedBox(height: 24),
-                const Divider(),
-                const SizedBox(height: 16),
-                
-                // Color Scheme Selection
-                Text(
-                  l10n.colorScheme,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w600,
+                // Only show color customization when custom mode is selected
+                if (themeMode == ThemeMode.system) ...[
+                  const SizedBox(height: 24),
+                  const Divider(),
+                  const SizedBox(height: 16),
+                  
+                  // Color Scheme Selection
+                  Text(
+                    l10n.colorScheme,
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 16),
+                  const SizedBox(height: 16),
                 
                 // Predefined Color Schemes
                 Text(
@@ -322,15 +324,12 @@ class SettingsScreen extends ConsumerWidget {
                     label: Text(l10n.resetToDefault),
                   ),
                 ),
+                ],
               ],
             ),
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.cancel),
-          ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(l10n.done),
@@ -377,7 +376,7 @@ class SettingsScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.cancel),
+            child: Text(l10n.done),
           ),
         ],
       ),
