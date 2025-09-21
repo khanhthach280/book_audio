@@ -98,6 +98,18 @@ class AppLocalizations {
       'account': 'Account',
       'signOutOfAccount': 'Sign out of your account',
       'areYouSureLogout': 'Are you sure you want to sign out?',
+      'colors': 'Colors',
+      'primaryColor': 'Primary Color',
+      'secondaryColor': 'Secondary Color',
+      'accentColor': 'Accent Color',
+      'predefinedThemes': 'Predefined Themes',
+      'customColor': 'Custom Color',
+      'resetToDefault': 'Reset to Default',
+      'pickColor': 'Pick Color',
+      'done': 'Done',
+      'themeMode': 'Theme Mode',
+      'colorScheme': 'Color Scheme',
+      'predefinedColorThemes': 'Predefined Color Themes',
     },
     'vi': {
       'appTitle': 'Sách Nói',
@@ -179,6 +191,18 @@ class AppLocalizations {
       'account': 'Tài khoản',
       'signOutOfAccount': 'Đăng xuất khỏi tài khoản của bạn',
       'areYouSureLogout': 'Bạn có chắc chắn muốn đăng xuất không?',
+      'colors': 'Màu sắc',
+      'primaryColor': 'Màu chính',
+      'secondaryColor': 'Màu phụ',
+      'accentColor': 'Màu nhấn',
+      'predefinedThemes': 'Chủ đề có sẵn',
+      'customColor': 'Màu tùy chỉnh',
+      'resetToDefault': 'Đặt lại mặc định',
+      'pickColor': 'Chọn màu',
+      'done': 'Xong',
+      'themeMode': 'Chế độ giao diện',
+      'colorScheme': 'Bộ màu',
+      'predefinedColorThemes': 'Chủ đề màu có sẵn',
     },
   };
   
@@ -267,6 +291,18 @@ class AppLocalizations {
   String get account => _getText('account');
   String get signOutOfAccount => _getText('signOutOfAccount');
   String get areYouSureLogout => _getText('areYouSureLogout');
+  String get colors => _getText('colors');
+  String get primaryColor => _getText('primaryColor');
+  String get secondaryColor => _getText('secondaryColor');
+  String get accentColor => _getText('accentColor');
+  String get predefinedThemes => _getText('predefinedThemes');
+  String get customColor => _getText('customColor');
+  String get resetToDefault => _getText('resetToDefault');
+  String get pickColor => _getText('pickColor');
+  String get done => _getText('done');
+  String get themeMode => _getText('themeMode');
+  String get colorScheme => _getText('colorScheme');
+  String get predefinedColorThemes => _getText('predefinedColorThemes');
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

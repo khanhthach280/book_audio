@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import '../theme/app_theme.dart';
 import '../theme/theme_provider.dart';
 import '../utils/locale_provider.dart';
 import '../routing/app_router.dart';
@@ -17,14 +16,16 @@ class App extends ConsumerWidget {
     final router = ref.watch(appRouterProvider);
     final themeMode = ref.watch(themeModeProvider);
     final locale = ref.watch(localeProvider);
+    final lightTheme = ref.watch(lightThemeDataProvider);
+    final darkTheme = ref.watch(darkThemeDataProvider);
     
     return MaterialApp.router(
       title: 'Book Audio',
       debugShowCheckedModeBanner: false,
       
-      // Theme configuration
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
+      // Theme configuration with custom colors
+      theme: lightTheme,
+      darkTheme: darkTheme,
       themeMode: themeMode,
       
       // Localization configuration

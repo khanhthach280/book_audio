@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/theme_provider.dart';
+import '../../../../core/theme/color_scheme_provider.dart';
 import '../../../../core/utils/locale_provider.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../shared/widgets/color_picker_widget.dart';
 import '../../../auth/presentation/providers/auth_providers.dart';
 
 /// Settings screen widget
@@ -147,52 +149,195 @@ class SettingsScreen extends ConsumerWidget {
   void _showThemeDialog(BuildContext context, WidgetRef ref, AppLocalizations l10n) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.theme),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RadioListTile<ThemeMode>(
-              title: Text(l10n.lightMode),
-              value: ThemeMode.light,
-              groupValue: ref.read(themeModeProvider),
-              onChanged: (value) {
-                if (value != null) {
-                  ref.read(themeModeProvider.notifier).setThemeMode(value);
-                  Navigator.of(context).pop();
-                }
-              },
+      builder: (context) => Consumer(
+        builder: (context, ref, child) {
+          final themeMode = ref.watch(themeModeProvider);
+          final colorScheme = ref.watch(colorSchemeProvider);
+          
+          return AlertDialog(
+            title: Text(l10n.theme),
+            content: SizedBox(
+              width: 400,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Theme Mode Selection
+                    Text(
+                      l10n.themeMode,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    RadioListTile<ThemeMode>(
+                      title: Text(l10n.lightMode),
+                      value: ThemeMode.light,
+                      groupValue: themeMode,
+                      onChanged: (value) {
+                        if (value != null) {
+                          ref.read(themeModeProvider.notifier).setThemeMode(value);
+                        }
+                      },
+                    ),
+                    RadioListTile<ThemeMode>(
+                      title: Text(l10n.darkMode),
+                      value: ThemeMode.dark,
+                      groupValue: themeMode,
+                      onChanged: (value) {
+                        if (value != null) {
+                          ref.read(themeModeProvider.notifier).setThemeMode(value);
+                        }
+                      },
+                    ),
+                    RadioListTile<ThemeMode>(
+                      title: Text(l10n.systemMode),
+                      value: ThemeMode.system,
+                      groupValue: themeMode,
+                      onChanged: (value) {
+                        if (value != null) {
+                          ref.read(themeModeProvider.notifier).setThemeMode(value);
+                        }
+                      },
+                    ),
+                
+                const SizedBox(height: 24),
+                const Divider(),
+                const SizedBox(height: 16),
+                
+                // Color Scheme Selection
+                Text(
+                  l10n.colorScheme,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                
+                // Predefined Color Schemes
+                Text(
+                  l10n.predefinedColorThemes,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.grey,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                
+                // Theme buttons
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: PredefinedColorSchemes.schemes.map((scheme) {
+                    final isSelected = scheme.primary.value == colorScheme.primary.value &&
+                        scheme.secondary.value == colorScheme.secondary.value &&
+                        scheme.accent.value == colorScheme.accent.value;
+                    
+                    return GestureDetector(
+                      onTap: () {
+                        ref.read(colorSchemeProvider.notifier).applyPredefinedScheme(scheme);
+                      },
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: isSelected ? AppColors.primary : AppColors.grey,
+                            width: isSelected ? 2 : 1,
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 20,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                color: scheme.primary,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              scheme.name,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                
+                const SizedBox(height: 16),
+                
+                // Custom Color Pickers
+                ColorPickerWidget(
+                  title: l10n.primaryColor,
+                  currentColor: colorScheme.primary,
+                  predefinedColors: PredefinedColorSchemes.schemes
+                      .map((scheme) => scheme.primary)
+                      .toList(),
+                  onColorChanged: (color) {
+                    ref.read(colorSchemeProvider.notifier).setPrimaryColor(color);
+                  },
+                ),
+                
+                const SizedBox(height: 16),
+                
+                ColorPickerWidget(
+                  title: l10n.secondaryColor,
+                  currentColor: colorScheme.secondary,
+                  predefinedColors: PredefinedColorSchemes.schemes
+                      .map((scheme) => scheme.secondary)
+                      .toList(),
+                  onColorChanged: (color) {
+                    ref.read(colorSchemeProvider.notifier).setSecondaryColor(color);
+                  },
+                ),
+                
+                const SizedBox(height: 16),
+                
+                ColorPickerWidget(
+                  title: l10n.accentColor,
+                  currentColor: colorScheme.accent,
+                  predefinedColors: PredefinedColorSchemes.schemes
+                      .map((scheme) => scheme.accent)
+                      .toList(),
+                  onColorChanged: (color) {
+                    ref.read(colorSchemeProvider.notifier).setAccentColor(color);
+                  },
+                ),
+                
+                const SizedBox(height: 16),
+                
+                // Reset button
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      ref.read(colorSchemeProvider.notifier).resetToDefault();
+                    },
+                    icon: const Icon(Icons.refresh, size: 16),
+                    label: Text(l10n.resetToDefault),
+                  ),
+                ),
+              ],
             ),
-            RadioListTile<ThemeMode>(
-              title: Text(l10n.darkMode),
-              value: ThemeMode.dark,
-              groupValue: ref.read(themeModeProvider),
-              onChanged: (value) {
-                if (value != null) {
-                  ref.read(themeModeProvider.notifier).setThemeMode(value);
-                  Navigator.of(context).pop();
-                }
-              },
-            ),
-            RadioListTile<ThemeMode>(
-              title: Text(l10n.systemMode),
-              value: ThemeMode.system,
-              groupValue: ref.read(themeModeProvider),
-              onChanged: (value) {
-                if (value != null) {
-                  ref.read(themeModeProvider.notifier).setThemeMode(value);
-                  Navigator.of(context).pop();
-                }
-              },
-            ),
-          ],
+          ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(l10n.cancel),
           ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(l10n.done),
+          ),
         ],
+      );
+        },
       ),
     );
   }

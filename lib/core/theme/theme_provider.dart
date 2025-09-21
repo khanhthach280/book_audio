@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/app_constants.dart';
 import 'app_theme.dart';
+import 'color_scheme_provider.dart';
 
 /// Theme mode provider for managing app theme
 final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((ref) {
@@ -78,26 +79,31 @@ class ThemeModeNotifier extends StateNotifier<ThemeMode> {
   }
 }
 
-/// Theme data provider
+/// Light theme data provider with custom colors
+final lightThemeDataProvider = Provider<ThemeData>((ref) {
+  final colorScheme = ref.watch(colorSchemeProvider);
+  return AppTheme.createLightTheme(colorScheme);
+});
+
+/// Dark theme data provider with custom colors
+final darkThemeDataProvider = Provider<ThemeData>((ref) {
+  final colorScheme = ref.watch(colorSchemeProvider);
+  return AppTheme.createDarkTheme(colorScheme);
+});
+
+/// Theme data provider based on current theme mode
 final themeDataProvider = Provider<ThemeData>((ref) {
   final themeMode = ref.watch(themeModeProvider);
+  final lightTheme = ref.watch(lightThemeDataProvider);
+  final darkTheme = ref.watch(darkThemeDataProvider);
   
   switch (themeMode) {
     case ThemeMode.light:
-      return AppTheme.lightTheme;
+      return lightTheme;
     case ThemeMode.dark:
-      return AppTheme.darkTheme;
+      return darkTheme;
     case ThemeMode.system:
-      return AppTheme.lightTheme; // Default to light theme
+      return lightTheme; // Default to light theme
   }
 });
 
-/// Dark theme data provider
-final darkThemeDataProvider = Provider<ThemeData>((ref) {
-  return AppTheme.darkTheme;
-});
-
-/// Light theme data provider
-final lightThemeDataProvider = Provider<ThemeData>((ref) {
-  return AppTheme.lightTheme;
-});
