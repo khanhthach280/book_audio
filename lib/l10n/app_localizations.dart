@@ -1,338 +1,681 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-/// App localizations class
-class AppLocalizations {
-  final Locale locale;
-  
-  AppLocalizations(this.locale);
-  
-  static AppLocalizations of(BuildContext context) {
-    return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations_en.dart';
+import 'app_localizations_vi.dart';
+
+// ignore_for_file: type=lint
+
+/// Callers can lookup localized strings with an instance of AppLocalizations
+/// returned by `AppLocalizations.of(context)`.
+///
+/// Applications need to include `AppLocalizations.delegate()` in their app's
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
+///
+/// ```dart
+/// import 'l10n/app_localizations.dart';
+///
+/// return MaterialApp(
+///   localizationsDelegates: AppLocalizations.localizationsDelegates,
+///   supportedLocales: AppLocalizations.supportedLocales,
+///   home: MyApplicationHome(),
+/// );
+/// ```
+///
+/// ## Update pubspec.yaml
+///
+/// Please make sure to update your pubspec.yaml to include the following
+/// packages:
+///
+/// ```yaml
+/// dependencies:
+///   # Internationalization support.
+///   flutter_localizations:
+///     sdk: flutter
+///   intl: any # Use the pinned version from flutter_localizations
+///
+///   # Rest of dependencies
+/// ```
+///
+/// ## iOS Applications
+///
+/// iOS applications define key application metadata, including supported
+/// locales, in an Info.plist file that is built into the application bundle.
+/// To configure the locales supported by your app, you’ll need to edit this
+/// file.
+///
+/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
+/// Then, in the Project Navigator, open the Info.plist file under the Runner
+/// project’s Runner folder.
+///
+/// Next, select the Information Property List item, select Add Item from the
+/// Editor menu, then select Localizations from the pop-up menu.
+///
+/// Select and expand the newly-created Localizations item then, for each
+/// locale your application supports, add a new item and select the locale
+/// you wish to add from the pop-up menu in the Value field. This list should
+/// be consistent with the languages listed in the AppLocalizations.supportedLocales
+/// property.
+abstract class AppLocalizations {
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+
+  final String localeName;
+
+  static AppLocalizations? of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
-  
+
   static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
-  
-  static Future<AppLocalizations> load(Locale locale) async {
-    return AppLocalizations(locale);
-  }
-  
-  // English translations
-  static const Map<String, Map<String, String>> _localizedValues = {
-    'en': {
-      'appTitle': 'Book Audio',
-      'welcome': 'Welcome',
-      'login': 'Login',
-      'logout': 'Logout',
-      'email': 'Email',
-      'password': 'Password',
-      'confirmPassword': 'Confirm Password',
-      'forgotPassword': 'Forgot Password?',
-      'dontHaveAccount': 'Don\'t have an account?',
-      'alreadyHaveAccount': 'Already have an account?',
-      'signUp': 'Sign Up',
-      'home': 'Home',
-      'profile': 'Profile',
-      'settings': 'Settings',
-      'theme': 'Theme',
-      'language': 'Language',
-      'darkMode': 'Dark Mode',
-      'lightMode': 'Light Mode',
-      'systemMode': 'System Mode',
-      'english': 'English',
-      'vietnamese': 'Vietnamese',
-      'loading': 'Loading...',
-      'error': 'Error',
-      'success': 'Success',
-      'retry': 'Retry',
-      'cancel': 'Cancel',
-      'ok': 'OK',
-      'save': 'Save',
-      'delete': 'Delete',
-      'edit': 'Edit',
-      'add': 'Add',
-      'search': 'Search',
-      'refresh': 'Refresh',
-      'pullToRefresh': 'Pull to refresh',
-      'noData': 'No data available',
-      'noInternet': 'No internet connection',
-      'serverError': 'Server error. Please try again later.',
-      'networkError': 'Network error. Please check your connection.',
-      'timeoutError': 'Request timeout. Please try again.',
-      'invalidCredentials': 'Invalid credentials. Please check your login details.',
-      'loginSuccess': 'Login successful',
-      'loginFailed': 'Login failed',
-      'logoutSuccess': 'Logout successful',
-      'emailRequired': 'Email is required',
-      'passwordRequired': 'Password is required',
-      'invalidEmail': 'Please enter a valid email',
-      'passwordTooShort': 'Password must be at least 6 characters',
-      'passwordsDoNotMatch': 'Passwords do not match',
-      'splashScreen': 'Splash Screen',
-      'checkingAuth': 'Checking authentication...',
-      'checkingConnection': 'Checking internet connection...',
-      'noInternetConnection': 'No Internet Connection',
-      'checkConnectionAndRetry': 'Please check your internet connection and try again',
-      'retryConnection': 'Retry',
-      'books': 'Books',
-      'audioBooks': 'Audio Books',
-      'favorites': 'Favorites',
-      'recentlyPlayed': 'Recently Played',
-      'categories': 'Categories',
-      'authors': 'Authors',
-      'play': 'Play',
-      'pause': 'Pause',
-      'stop': 'Stop',
-      'next': 'Next',
-      'previous': 'Previous',
-      'volume': 'Volume',
-      'speed': 'Speed',
-      'bookmark': 'Bookmark',
-      'share': 'Share',
-      'download': 'Download',
-      'remove': 'Remove',
-      'playlist': 'Playlist',
-      'addToPlaylist': 'Add to Playlist',
-      'removeFromPlaylist': 'Remove from Playlist',
-      'createPlaylist': 'Create Playlist',
-      'playlistName': 'Playlist Name',
-      'playlistDescription': 'Playlist Description',
-      'myPlaylists': 'My Playlists',
-      'publicPlaylists': 'Public Playlists',
-      'privatePlaylists': 'Private Playlists',
-      'account': 'Account',
-      'signOutOfAccount': 'Sign out of your account',
-      'areYouSureLogout': 'Are you sure you want to sign out?',
-      'colors': 'Colors',
-      'primaryColor': 'Primary Color',
-      'secondaryColor': 'Secondary Color',
-      'accentColor': 'Accent Color',
-      'predefinedThemes': 'Predefined Themes',
-      'customColor': 'Custom Color',
-      'resetToDefault': 'Reset to Default',
-      'pickColor': 'Pick Color',
-      'done': 'Done',
-      'themeMode': 'Theme Mode',
-      'colorScheme': 'Color Scheme',
-      'predefinedColorThemes': 'Predefined Color Themes',
-      'customMode': 'Custom Mode',
-    },
-    'vi': {
-      'appTitle': 'Sách Nói',
-      'welcome': 'Chào mừng',
-      'login': 'Đăng nhập',
-      'logout': 'Đăng xuất',
-      'email': 'Email',
-      'password': 'Mật khẩu',
-      'confirmPassword': 'Xác nhận mật khẩu',
-      'forgotPassword': 'Quên mật khẩu?',
-      'dontHaveAccount': 'Chưa có tài khoản?',
-      'alreadyHaveAccount': 'Đã có tài khoản?',
-      'signUp': 'Đăng ký',
-      'home': 'Trang chủ',
-      'profile': 'Hồ sơ',
-      'settings': 'Cài đặt',
-      'theme': 'Giao diện',
-      'language': 'Ngôn ngữ',
-      'darkMode': 'Chế độ tối',
-      'lightMode': 'Chế độ sáng',
-      'systemMode': 'Chế độ hệ thống',
-      'english': 'Tiếng Anh',
-      'vietnamese': 'Tiếng Việt',
-      'loading': 'Đang tải...',
-      'error': 'Lỗi',
-      'success': 'Thành công',
-      'retry': 'Thử lại',
-      'cancel': 'Hủy',
-      'ok': 'OK',
-      'save': 'Lưu',
-      'delete': 'Xóa',
-      'edit': 'Chỉnh sửa',
-      'add': 'Thêm',
-      'search': 'Tìm kiếm',
-      'refresh': 'Làm mới',
-      'pullToRefresh': 'Kéo để làm mới',
-      'noData': 'Không có dữ liệu',
-      'noInternet': 'Không có kết nối internet',
-      'serverError': 'Lỗi máy chủ. Vui lòng thử lại sau.',
-      'networkError': 'Lỗi mạng. Vui lòng kiểm tra kết nối.',
-      'timeoutError': 'Hết thời gian chờ. Vui lòng thử lại.',
-      'invalidCredentials': 'Thông tin đăng nhập không hợp lệ. Vui lòng kiểm tra lại.',
-      'loginSuccess': 'Đăng nhập thành công',
-      'loginFailed': 'Đăng nhập thất bại',
-      'logoutSuccess': 'Đăng xuất thành công',
-      'emailRequired': 'Email là bắt buộc',
-      'passwordRequired': 'Mật khẩu là bắt buộc',
-      'invalidEmail': 'Vui lòng nhập email hợp lệ',
-      'passwordTooShort': 'Mật khẩu phải có ít nhất 6 ký tự',
-      'passwordsDoNotMatch': 'Mật khẩu không khớp',
-      'splashScreen': 'Màn hình khởi động',
-      'checkingAuth': 'Đang kiểm tra xác thực...',
-      'checkingConnection': 'Đang kiểm tra kết nối internet...',
-      'noInternetConnection': 'Không có kết nối Internet',
-      'checkConnectionAndRetry': 'Vui lòng kiểm tra kết nối internet và thử lại',
-      'retryConnection': 'Thử lại',
-      'books': 'Sách',
-      'audioBooks': 'Sách nói',
-      'favorites': 'Yêu thích',
-      'recentlyPlayed': 'Đã phát gần đây',
-      'categories': 'Danh mục',
-      'authors': 'Tác giả',
-      'play': 'Phát',
-      'pause': 'Tạm dừng',
-      'stop': 'Dừng',
-      'next': 'Tiếp theo',
-      'previous': 'Trước đó',
-      'volume': 'Âm lượng',
-      'speed': 'Tốc độ',
-      'bookmark': 'Đánh dấu',
-      'share': 'Chia sẻ',
-      'download': 'Tải xuống',
-      'remove': 'Xóa',
-      'playlist': 'Danh sách phát',
-      'addToPlaylist': 'Thêm vào danh sách phát',
-      'removeFromPlaylist': 'Xóa khỏi danh sách phát',
-      'createPlaylist': 'Tạo danh sách phát',
-      'playlistName': 'Tên danh sách phát',
-      'playlistDescription': 'Mô tả danh sách phát',
-      'myPlaylists': 'Danh sách phát của tôi',
-      'publicPlaylists': 'Danh sách phát công khai',
-      'privatePlaylists': 'Danh sách phát riêng tư',
-      'account': 'Tài khoản',
-      'signOutOfAccount': 'Đăng xuất khỏi tài khoản của bạn',
-      'areYouSureLogout': 'Bạn có chắc chắn muốn đăng xuất không?',
-      'colors': 'Màu sắc',
-      'primaryColor': 'Màu chính',
-      'secondaryColor': 'Màu phụ',
-      'accentColor': 'Màu nhấn',
-      'predefinedThemes': 'Chủ đề có sẵn',
-      'customColor': 'Màu tùy chỉnh',
-      'resetToDefault': 'Đặt lại mặc định',
-      'pickColor': 'Chọn màu',
-      'done': 'Xong',
-      'themeMode': 'Chế độ giao diện',
-      'colorScheme': 'Bộ màu',
-      'predefinedColorThemes': 'Chủ đề màu có sẵn',
-      'customMode': 'Chế độ tùy chỉnh',
-    },
-  };
-  
-  String _getText(String key) {
-    return _localizedValues[locale.languageCode]?[key] ?? 
-           _localizedValues['en']![key]!;
-  }
-  
-  // Getters for all translations
-  String get appTitle => _getText('appTitle');
-  String get welcome => _getText('welcome');
-  String get login => _getText('login');
-  String get logout => _getText('logout');
-  String get email => _getText('email');
-  String get password => _getText('password');
-  String get confirmPassword => _getText('confirmPassword');
-  String get forgotPassword => _getText('forgotPassword');
-  String get dontHaveAccount => _getText('dontHaveAccount');
-  String get alreadyHaveAccount => _getText('alreadyHaveAccount');
-  String get signUp => _getText('signUp');
-  String get home => _getText('home');
-  String get profile => _getText('profile');
-  String get settings => _getText('settings');
-  String get theme => _getText('theme');
-  String get language => _getText('language');
-  String get darkMode => _getText('darkMode');
-  String get lightMode => _getText('lightMode');
-  String get systemMode => _getText('systemMode');
-  String get english => _getText('english');
-  String get vietnamese => _getText('vietnamese');
-  String get loading => _getText('loading');
-  String get error => _getText('error');
-  String get success => _getText('success');
-  String get retry => _getText('retry');
-  String get cancel => _getText('cancel');
-  String get ok => _getText('ok');
-  String get save => _getText('save');
-  String get delete => _getText('delete');
-  String get edit => _getText('edit');
-  String get add => _getText('add');
-  String get search => _getText('search');
-  String get refresh => _getText('refresh');
-  String get pullToRefresh => _getText('pullToRefresh');
-  String get noData => _getText('noData');
-  String get noInternet => _getText('noInternet');
-  String get serverError => _getText('serverError');
-  String get networkError => _getText('networkError');
-  String get timeoutError => _getText('timeoutError');
-  String get invalidCredentials => _getText('invalidCredentials');
-  String get loginSuccess => _getText('loginSuccess');
-  String get loginFailed => _getText('loginFailed');
-  String get logoutSuccess => _getText('logoutSuccess');
-  String get emailRequired => _getText('emailRequired');
-  String get passwordRequired => _getText('passwordRequired');
-  String get invalidEmail => _getText('invalidEmail');
-  String get passwordTooShort => _getText('passwordTooShort');
-  String get passwordsDoNotMatch => _getText('passwordsDoNotMatch');
-  String get splashScreen => _getText('splashScreen');
-  String get checkingAuth => _getText('checkingAuth');
-  String get checkingConnection => _getText('checkingConnection');
-  String get noInternetConnection => _getText('noInternetConnection');
-  String get checkConnectionAndRetry => _getText('checkConnectionAndRetry');
-  String get retryConnection => _getText('retryConnection');
-  String get books => _getText('books');
-  String get audioBooks => _getText('audioBooks');
-  String get favorites => _getText('favorites');
-  String get recentlyPlayed => _getText('recentlyPlayed');
-  String get categories => _getText('categories');
-  String get authors => _getText('authors');
-  String get play => _getText('play');
-  String get pause => _getText('pause');
-  String get stop => _getText('stop');
-  String get next => _getText('next');
-  String get previous => _getText('previous');
-  String get volume => _getText('volume');
-  String get speed => _getText('speed');
-  String get bookmark => _getText('bookmark');
-  String get share => _getText('share');
-  String get download => _getText('download');
-  String get remove => _getText('remove');
-  String get playlist => _getText('playlist');
-  String get addToPlaylist => _getText('addToPlaylist');
-  String get removeFromPlaylist => _getText('removeFromPlaylist');
-  String get createPlaylist => _getText('createPlaylist');
-  String get playlistName => _getText('playlistName');
-  String get playlistDescription => _getText('playlistDescription');
-  String get myPlaylists => _getText('myPlaylists');
-  String get publicPlaylists => _getText('publicPlaylists');
-  String get privatePlaylists => _getText('privatePlaylists');
-  String get account => _getText('account');
-  String get signOutOfAccount => _getText('signOutOfAccount');
-  String get areYouSureLogout => _getText('areYouSureLogout');
-  String get colors => _getText('colors');
-  String get primaryColor => _getText('primaryColor');
-  String get secondaryColor => _getText('secondaryColor');
-  String get accentColor => _getText('accentColor');
-  String get predefinedThemes => _getText('predefinedThemes');
-  String get customColor => _getText('customColor');
-  String get resetToDefault => _getText('resetToDefault');
-  String get pickColor => _getText('pickColor');
-  String get done => _getText('done');
-  String get themeMode => _getText('themeMode');
-  String get colorScheme => _getText('colorScheme');
-  String get predefinedColorThemes => _getText('predefinedColorThemes');
-  String get customMode => _getText('customMode');
+
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
+  /// and GlobalWidgetsLocalizations.delegate.
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
+
+  /// A list of this localizations delegate's supported locales.
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('vi')
+  ];
+
+  /// No description provided for @appTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Book Audio'**
+  String get appTitle;
+
+  /// No description provided for @welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get welcome;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get forgotPassword;
+
+  /// No description provided for @dontHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get dontHaveAccount;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signUp;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get theme;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @darkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkMode;
+
+  /// No description provided for @lightMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Mode'**
+  String get lightMode;
+
+  /// No description provided for @customMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Mode'**
+  String get customMode;
+
+  /// No description provided for @themeMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme Mode'**
+  String get themeMode;
+
+  /// No description provided for @colorScheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Color Scheme'**
+  String get colorScheme;
+
+  /// No description provided for @predefinedColorThemes.
+  ///
+  /// In en, this message translates to:
+  /// **'Predefined Color Themes'**
+  String get predefinedColorThemes;
+
+  /// No description provided for @primaryColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Color'**
+  String get primaryColor;
+
+  /// No description provided for @secondaryColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Secondary Color'**
+  String get secondaryColor;
+
+  /// No description provided for @accentColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Accent Color'**
+  String get accentColor;
+
+  /// No description provided for @resetToDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset to Default'**
+  String get resetToDefault;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account;
+
+  /// No description provided for @signOutOfAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out of your account'**
+  String get signOutOfAccount;
+
+  /// No description provided for @areYouSureLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to logout?'**
+  String get areYouSureLogout;
+
+  /// No description provided for @checkingConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking connection...'**
+  String get checkingConnection;
+
+  /// No description provided for @noInternetConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection'**
+  String get noInternetConnection;
+
+  /// No description provided for @checkConnectionAndRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your connection and try again'**
+  String get checkConnectionAndRetry;
+
+  /// No description provided for @retryConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry Connection'**
+  String get retryConnection;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// No description provided for @vietnamese.
+  ///
+  /// In en, this message translates to:
+  /// **'Vietnamese'**
+  String get vietnamese;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get success;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
+
+  /// No description provided for @pullToRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull to refresh'**
+  String get pullToRefresh;
+
+  /// No description provided for @noData.
+  ///
+  /// In en, this message translates to:
+  /// **'No data available'**
+  String get noData;
+
+  /// No description provided for @noInternet.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection'**
+  String get noInternet;
+
+  /// No description provided for @serverError.
+  ///
+  /// In en, this message translates to:
+  /// **'Server error. Please try again later.'**
+  String get serverError;
+
+  /// No description provided for @networkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Network error. Please check your connection.'**
+  String get networkError;
+
+  /// No description provided for @timeoutError.
+  ///
+  /// In en, this message translates to:
+  /// **'Request timeout. Please try again.'**
+  String get timeoutError;
+
+  /// No description provided for @invalidCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid credentials. Please check your login details.'**
+  String get invalidCredentials;
+
+  /// No description provided for @loginSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Login successful'**
+  String get loginSuccess;
+
+  /// No description provided for @loginFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Login failed'**
+  String get loginFailed;
+
+  /// No description provided for @logoutSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout successful'**
+  String get logoutSuccess;
+
+  /// No description provided for @emailRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Email is required'**
+  String get emailRequired;
+
+  /// No description provided for @passwordRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Password is required'**
+  String get passwordRequired;
+
+  /// No description provided for @invalidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email'**
+  String get invalidEmail;
+
+  /// No description provided for @passwordTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get passwordTooShort;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
+
+  /// No description provided for @splashScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Splash Screen'**
+  String get splashScreen;
+
+  /// No description provided for @checkingAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking authentication...'**
+  String get checkingAuth;
+
+  /// No description provided for @books.
+  ///
+  /// In en, this message translates to:
+  /// **'Books'**
+  String get books;
+
+  /// No description provided for @audioBooks.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio Books'**
+  String get audioBooks;
+
+  /// No description provided for @favorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites'**
+  String get favorites;
+
+  /// No description provided for @recentlyPlayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Recently Played'**
+  String get recentlyPlayed;
+
+  /// No description provided for @categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// No description provided for @authors.
+  ///
+  /// In en, this message translates to:
+  /// **'Authors'**
+  String get authors;
+
+  /// No description provided for @play.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get play;
+
+  /// No description provided for @pause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get pause;
+
+  /// No description provided for @stop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get stop;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @previous.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get previous;
+
+  /// No description provided for @volume.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume'**
+  String get volume;
+
+  /// No description provided for @speed.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed'**
+  String get speed;
+
+  /// No description provided for @bookmark.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark'**
+  String get bookmark;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @download.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get download;
+
+  /// No description provided for @remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
+
+  /// No description provided for @playlist.
+  ///
+  /// In en, this message translates to:
+  /// **'Playlist'**
+  String get playlist;
+
+  /// No description provided for @addToPlaylist.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Playlist'**
+  String get addToPlaylist;
+
+  /// No description provided for @removeFromPlaylist.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from Playlist'**
+  String get removeFromPlaylist;
+
+  /// No description provided for @createPlaylist.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Playlist'**
+  String get createPlaylist;
+
+  /// No description provided for @playlistName.
+  ///
+  /// In en, this message translates to:
+  /// **'Playlist Name'**
+  String get playlistName;
+
+  /// No description provided for @playlistDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Playlist Description'**
+  String get playlistDescription;
+
+  /// No description provided for @myPlaylists.
+  ///
+  /// In en, this message translates to:
+  /// **'My Playlists'**
+  String get myPlaylists;
+
+  /// No description provided for @publicPlaylists.
+  ///
+  /// In en, this message translates to:
+  /// **'Public Playlists'**
+  String get publicPlaylists;
+
+  /// No description provided for @privatePlaylists.
+  ///
+  /// In en, this message translates to:
+  /// **'Private Playlists'**
+  String get privatePlaylists;
+
+  /// No description provided for @predefinedColors.
+  ///
+  /// In en, this message translates to:
+  /// **'Predefined Colors'**
+  String get predefinedColors;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) {
-    return ['en', 'vi'].contains(locale.languageCode);
+  Future<AppLocalizations> load(Locale locale) {
+    return SynchronousFuture<AppLocalizations>(lookupAppLocalizations(locale));
   }
 
   @override
-  Future<AppLocalizations> load(Locale locale) async {
-    return AppLocalizations(locale);
-  }
+  bool isSupported(Locale locale) => <String>['en', 'vi'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
+}
+
+AppLocalizations lookupAppLocalizations(Locale locale) {
+
+
+  // Lookup logic when only language code is specified.
+  switch (locale.languageCode) {
+    case 'en': return AppLocalizationsEn();
+    case 'vi': return AppLocalizationsVi();
+  }
+
+  throw FlutterError(
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

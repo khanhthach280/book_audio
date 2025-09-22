@@ -49,7 +49,10 @@ class App extends ConsumerWidget {
         // Initialize ErrorMessageService with current localizations
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (context.mounted) {
-            ErrorMessageService.initialize(AppLocalizations.of(context));
+            final localizations = AppLocalizations.of(context);
+            if (localizations != null) {
+              ErrorMessageService.initialize(localizations);
+            }
           }
         });
         return child ?? const SizedBox.shrink();

@@ -47,6 +47,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   Widget build(BuildContext context) {
     final authState = ref.watch(authStateProvider);
     final l10n = AppLocalizations.of(context);
+    if (l10n == null) return const SizedBox.shrink();
     
     // Listen to auth state changes
     ref.listen(authStateProvider, (previous, next) {

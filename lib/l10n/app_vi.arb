@@ -89,5 +89,6 @@
   "playlistDescription": "Mô tả danh sách phát",
   "myPlaylists": "Danh sách phát của tôi",
   "publicPlaylists": "Danh sách phát công khai",
-  "privatePlaylists": "Danh sách phát riêng tư"
+  "privatePlaylists": "Danh sách phát riêng tư",
+  "predefinedColors": "Bảng màu có sẵn"
 }

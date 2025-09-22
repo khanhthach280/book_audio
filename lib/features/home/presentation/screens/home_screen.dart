@@ -46,6 +46,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final booksState = ref.watch(booksProvider);
     final l10n = AppLocalizations.of(context);
+    if (l10n == null) return const SizedBox.shrink();
 
     return Scaffold(
       appBar: AppBar(

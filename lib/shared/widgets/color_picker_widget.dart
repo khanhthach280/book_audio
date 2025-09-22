@@ -1,3 +1,4 @@
+import 'package:book_audio/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_colors.dart';
@@ -19,6 +20,9 @@ class ColorPickerWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    if (l10n == null) return const SizedBox.shrink();
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -56,7 +60,7 @@ class ColorPickerWidget extends ConsumerWidget {
         // Predefined colors
         if (predefinedColors.isNotEmpty) ...[
           Text(
-            'Predefined Colors',
+            l10n.predefinedColors,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: AppColors.grey,
             ),

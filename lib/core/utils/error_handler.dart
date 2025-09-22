@@ -85,7 +85,10 @@ class ErrorHandler {
   /// Get error message from failure with localization
   static String getErrorMessage(BuildContext context, Failure failure) {
     // Initialize ErrorMessageService with current context
-    ErrorMessageService.initialize(AppLocalizations.of(context));
+    final localizations = AppLocalizations.of(context);
+    if (localizations != null) {
+      ErrorMessageService.initialize(localizations);
+    }
     
     // Get localized message using ErrorMessageService
     return ErrorMessageService.getErrorMessage(failure.runtimeType.toString());

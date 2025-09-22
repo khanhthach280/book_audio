@@ -15,6 +15,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
+    if (l10n == null) return const SizedBox.shrink();
     final themeMode = ref.watch(themeModeProvider);
     final locale = ref.watch(localeProvider);
 

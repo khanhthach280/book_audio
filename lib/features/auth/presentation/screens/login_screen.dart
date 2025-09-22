@@ -62,6 +62,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final authState = ref.watch(authStateProvider);
     // final locale = ref.watch(localeProvider);
     final l10n = AppLocalizations.of(context);
+    if (l10n == null) return const SizedBox.shrink();
 
     return Scaffold(
       body: SafeArea(

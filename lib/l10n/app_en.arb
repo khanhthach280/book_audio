@@ -89,5 +89,6 @@
   "playlistDescription": "Playlist Description",
   "myPlaylists": "My Playlists",
   "publicPlaylists": "Public Playlists",
-  "privatePlaylists": "Private Playlists"
+  "privatePlaylists": "Private Playlists",
+  "predefinedColors": "Predefined Colors"
 }
