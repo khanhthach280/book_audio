@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../constants/app_constants.dart';
-import 'app_theme.dart';
+import '../../core/constants/app_constants.dart';
+import '../../core/theme/app_theme.dart';
 import 'color_scheme_provider.dart';
 
 /// Theme mode provider for managing app theme
-final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((ref) {
+final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((
+  ref,
+) {
   return ThemeModeNotifier();
 });
 
@@ -15,13 +17,13 @@ class ThemeModeNotifier extends StateNotifier<ThemeMode> {
   ThemeModeNotifier() : super(ThemeMode.system) {
     _loadThemeMode();
   }
-  
+
   /// Load saved theme mode from SharedPreferences
   Future<void> _loadThemeMode() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final themeModeString = prefs.getString(AppConstants.themeKey);
-      
+
       if (themeModeString != null) {
         switch (themeModeString) {
           case 'light':
@@ -41,15 +43,15 @@ class ThemeModeNotifier extends StateNotifier<ThemeMode> {
       state = ThemeMode.system;
     }
   }
-  
+
   /// Set theme mode and save to SharedPreferences
   Future<void> setThemeMode(ThemeMode mode) async {
     state = mode;
-    
+
     try {
       final prefs = await SharedPreferences.getInstance();
       String themeModeString;
-      
+
       switch (mode) {
         case ThemeMode.light:
           themeModeString = 'light';
@@ -61,14 +63,14 @@ class ThemeModeNotifier extends StateNotifier<ThemeMode> {
           themeModeString = 'system';
           break;
       }
-      
+
       await prefs.setString(AppConstants.themeKey, themeModeString);
     } catch (e) {
       // If saving fails, continue with the current state
       print('Failed to save theme mode: $e');
     }
   }
-  
+
   /// Toggle between light and dark theme
   Future<void> toggleTheme() async {
     if (state == ThemeMode.light) {
@@ -96,7 +98,7 @@ final themeDataProvider = Provider<ThemeData>((ref) {
   final themeMode = ref.watch(themeModeProvider);
   final lightTheme = ref.watch(lightThemeDataProvider);
   final darkTheme = ref.watch(darkThemeDataProvider);
-  
+
   switch (themeMode) {
     case ThemeMode.light:
       return lightTheme;
@@ -106,4 +108,3 @@ final themeDataProvider = Provider<ThemeData>((ref) {
       return lightTheme; // Default to light theme
   }
 });
-
