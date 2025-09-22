@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../shared/providers/theme_provider.dart';
-import '../../../../shared/providers/color_scheme_provider.dart';
+import '../providers/theme_provider.dart';
+import '../providers/color_scheme_provider.dart';
 import '../../../../core/utils/locale_provider.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/widgets/color_picker_widget.dart';
@@ -176,7 +176,6 @@ class SettingsScreen extends ConsumerWidget {
                       groupValue: themeMode,
                       onChanged: (value) {
                         if (value != null) {
-                          print('========== AppThemeMode.light');
                           ref.read(themeModeProvider.notifier).setThemeMode(value);
                         }
                       },
@@ -187,7 +186,6 @@ class SettingsScreen extends ConsumerWidget {
                       groupValue: themeMode,
                       onChanged: (value) {
                         if (value != null) {
-                          print('========== AppThemeMode.dark');
                           ref.read(themeModeProvider.notifier).setThemeMode(value);
                         }
                       },
@@ -198,7 +196,6 @@ class SettingsScreen extends ConsumerWidget {
                       groupValue: themeMode,
                       onChanged: (value) {
                         if (value != null) {
-                          print('========== AppThemeMode.custom');
                           ref.read(themeModeProvider.notifier).setThemeMode(value);
                         }
                       },

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../core/constants/app_constants.dart';
-import '../../core/theme/app_theme.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/theme/app_theme.dart';
 import 'color_scheme_provider.dart';
 
 /// Custom theme mode enum for 3 types: light, dark, custom
@@ -55,7 +55,6 @@ class ThemeModeNotifier extends StateNotifier<AppThemeMode> {
 
   /// Set theme mode and save to SharedPreferences
   Future<void> setThemeMode(AppThemeMode mode) async {
-    print('========== setThemeMode: ${mode.name}');
     state = mode;
 
     try {

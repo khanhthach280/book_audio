@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
-import '../../shared/providers/color_scheme_provider.dart';
+import '../../features/settings/presentation/providers/color_scheme_provider.dart';
 
 /// Application theme configuration
 class AppTheme {
