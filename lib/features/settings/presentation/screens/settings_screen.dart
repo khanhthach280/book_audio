@@ -142,7 +142,7 @@ class SettingsScreen extends ConsumerWidget {
       case 'vi':
         return l10n.vietnamese;
       default:
-        return l10n.english;
+        return l10n.vietnamese;
     }
   }
 
@@ -344,41 +344,59 @@ class SettingsScreen extends ConsumerWidget {
   void _showLanguageDialog(BuildContext context, WidgetRef ref, AppLocalizations l10n) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.language),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RadioListTile<Locale>(
-              title: Text(l10n.english),
-              value: const Locale('en', 'US'),
-              groupValue: ref.read(localeProvider),
-              onChanged: (value) {
-                if (value != null) {
-                  ref.read(localeProvider.notifier).setLocale(value);
-                  Navigator.of(context).pop();
-                }
-              },
+      builder: (context) => Consumer(
+        builder: (context, ref, child) {
+          final currentLocale = ref.watch(localeProvider);
+          final localeNotifier = ref.read(localeProvider.notifier);
+          
+          return AlertDialog(
+            title: Text(l10n.language),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Vietnamese option
+                RadioListTile<Locale>(
+                  title: Row(
+                    children: [
+                      Text(l10n.vietnamese),
+                      const SizedBox(width: 8),
+                    ],
+                  ),
+                  value: const Locale('vi', 'VN'),
+                  groupValue: currentLocale,
+                  onChanged: (value) async {
+                    if (value != null) {
+                      await localeNotifier.setLocale(value);
+                      if (context.mounted) {
+                        Navigator.of(context).pop();
+                      }
+                    }
+                  },
+                ),
+                // English option
+                RadioListTile<Locale>(
+                  title: Text(l10n.english),
+                  value: const Locale('en', 'US'),
+                  groupValue: currentLocale,
+                  onChanged: (value) async {
+                    if (value != null) {
+                      await localeNotifier.setLocale(value);
+                      if (context.mounted) {
+                        Navigator.of(context).pop();
+                      }
+                    }
+                  },
+                ),
+              ],
             ),
-            RadioListTile<Locale>(
-              title: Text(l10n.vietnamese),
-              value: const Locale('vi', 'VN'),
-              groupValue: ref.read(localeProvider),
-              onChanged: (value) {
-                if (value != null) {
-                  ref.read(localeProvider.notifier).setLocale(value);
-                  Navigator.of(context).pop();
-                }
-              },
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.done),
-          ),
-        ],
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(l10n.done),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
