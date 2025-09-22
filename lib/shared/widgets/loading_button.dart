@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
 
 /// Loading button widget with loading state
 class LoadingButton extends StatelessWidget {
@@ -29,8 +28,8 @@ class LoadingButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: isLoading ? null : onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor ?? AppColors.primary,
-        foregroundColor: foregroundColor ?? AppColors.white,
+        backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.primary,
+        foregroundColor: foregroundColor ?? Theme.of(context).colorScheme.onPrimary,
         padding: padding ?? const EdgeInsets.symmetric(
           horizontal: 24,
           vertical: 12,
@@ -46,7 +45,7 @@ class LoadingButton extends StatelessWidget {
               width: 20,
               height: 20,
               child: CircularProgressIndicator(
-                color: foregroundColor ?? AppColors.white,
+                color: foregroundColor ?? Theme.of(context).colorScheme.onPrimary,
                 strokeWidth: 2,
               ),
             )

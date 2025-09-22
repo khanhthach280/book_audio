@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/theme/app_colors.dart';
 import '../../../../core/di/providers.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../auth/presentation/providers/auth_providers.dart';
@@ -104,7 +103,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     final l10n = AppLocalizations.of(context);
 
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -119,20 +118,20 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                     width: 120,
                     height: 120,
                     decoration: BoxDecoration(
-                      color: AppColors.white,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.black.withOpacity(0.2),
+                          color: Theme.of(context).colorScheme.shadow.withOpacity(0.2),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                         ),
                       ],
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.library_books,
                       size: 60,
-                      color: AppColors.primary,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 );
@@ -153,7 +152,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                       l10n.appTitle,
                       style: Theme.of(context).textTheme.displayMedium
                           ?.copyWith(
-                            color: AppColors.white,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             fontWeight: FontWeight.bold,
                           ),
                     ),
@@ -173,11 +172,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   child: Column(
                     children: [
                       if (_isCheckingConnectivity) ...[
-                        const SizedBox(
+                        SizedBox(
                           width: 24,
                           height: 24,
                           child: CircularProgressIndicator(
-                            color: AppColors.white,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             strokeWidth: 2,
                           ),
                         ),
@@ -186,13 +185,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                           l10n.checkingConnection,
                           style: Theme.of(context).textTheme.bodyLarge
                               ?.copyWith(
-                                color: AppColors.white.withOpacity(0.8),
+                                color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8),
                               ),
                         ),
                       ] else if (!_hasInternet) ...[
-                        const Icon(
+                        Icon(
                           Icons.wifi_off,
-                          color: AppColors.white,
+                          color: Theme.of(context).colorScheme.onPrimary,
                           size: 32,
                         ),
                         const SizedBox(height: 16),
@@ -200,7 +199,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                           l10n.noInternetConnection,
                           style: Theme.of(context).textTheme.bodyLarge
                               ?.copyWith(
-                                color: AppColors.white.withOpacity(0.8),
+                                color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8),
                               ),
                         ),
                         const SizedBox(height: 8),
@@ -208,7 +207,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                           l10n.checkConnectionAndRetry,
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
-                                color: AppColors.white.withOpacity(0.6),
+                                color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.6),
                               ),
                           textAlign: TextAlign.center,
                         ),
@@ -224,8 +223,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                           icon: const Icon(Icons.refresh, size: 18),
                           label: Text(l10n.retryConnection),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.white,
-                            foregroundColor: AppColors.primary,
+                            backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                            foregroundColor: Theme.of(context).colorScheme.primary,
                             padding: const EdgeInsets.symmetric(
                               horizontal: 24,
                               vertical: 12,
@@ -233,11 +232,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                           ),
                         ),
                       ] else ...[
-                        const SizedBox(
+                        SizedBox(
                           width: 24,
                           height: 24,
                           child: CircularProgressIndicator(
-                            color: AppColors.white,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             strokeWidth: 2,
                           ),
                         ),
@@ -246,7 +245,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                           l10n.checkingAuth,
                           style: Theme.of(context).textTheme.bodyLarge
                               ?.copyWith(
-                                color: AppColors.white.withOpacity(0.8),
+                                color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8),
                               ),
                         ),
                       ],

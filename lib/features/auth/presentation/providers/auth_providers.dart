@@ -4,7 +4,6 @@ import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/di/providers.dart';
-import '../../../../core/utils/error_handler.dart';
 import '../../../../core/utils/error_message_service.dart';
 
 /// Auth state provider

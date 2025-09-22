@@ -41,11 +41,11 @@ class BookCard extends StatelessWidget {
                     return Container(
                       width: 80,
                       height: 120,
-                      color: AppColors.greyLight,
-                      child: const Icon(
+                      color: Theme.of(context).colorScheme.surfaceVariant,
+                      child: Icon(
                         Icons.book,
                         size: 40,
-                        color: AppColors.grey,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     );
                   },
@@ -75,7 +75,7 @@ class BookCard extends StatelessWidget {
                     Text(
                       book.author,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.grey,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -90,13 +90,13 @@ class BookCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.1),
+                        color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
                         book.category,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.primary,
+                          color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -110,13 +110,13 @@ class BookCard extends StatelessWidget {
                         Icon(
                           Icons.access_time,
                           size: 16,
-                          color: AppColors.grey,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           book.formattedDuration,
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: AppColors.grey,
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
                         ),
                         if (book.rating != null) ...[
@@ -130,7 +130,7 @@ class BookCard extends StatelessWidget {
                           Text(
                             book.rating!.toStringAsFixed(1),
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppColors.grey,
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
                             ),
                           ),
                         ],
@@ -149,13 +149,13 @@ class BookCard extends StatelessWidget {
                               Text(
                                 'Progress',
                                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.grey,
+                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                                 ),
                               ),
                               Text(
                                 book.formattedProgress,
                                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.grey,
+                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                                 ),
                               ),
                             ],
@@ -163,9 +163,9 @@ class BookCard extends StatelessWidget {
                           const SizedBox(height: 4),
                           LinearProgressIndicator(
                             value: book.progress,
-                            backgroundColor: AppColors.greyLight,
-                            valueColor: const AlwaysStoppedAnimation<Color>(
-                              AppColors.primary,
+                            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Theme.of(context).colorScheme.primary,
                             ),
                           ),
                         ],
@@ -180,7 +180,7 @@ class BookCard extends StatelessWidget {
                 onPressed: onFavoriteToggle,
                 icon: Icon(
                   book.isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: book.isFavorite ? AppColors.error : AppColors.grey,
+                  color: book.isFavorite ? AppColors.error : Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
             ],

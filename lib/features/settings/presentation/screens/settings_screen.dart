@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/theme/app_colors.dart';
 import '../../../../shared/providers/theme_provider.dart';
 import '../../../../shared/providers/color_scheme_provider.dart';
 import '../../../../core/utils/locale_provider.dart';
@@ -56,7 +55,7 @@ class SettingsScreen extends ConsumerWidget {
       child: Text(
         title,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
-          color: AppColors.primary,
+          color: Theme.of(context).colorScheme.primary,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -66,14 +65,14 @@ class SettingsScreen extends ConsumerWidget {
   Widget _buildThemeCard(
     BuildContext context,
     WidgetRef ref,
-    ThemeMode themeMode,
+    AppThemeMode themeMode,
     AppLocalizations l10n,
   ) {
     return Card(
       child: Column(
         children: [
           ListTile(
-            leading: const Icon(Icons.brightness_6, color: AppColors.primary),
+            leading: Icon(Icons.brightness_6, color: Theme.of(context).colorScheme.primary),
             title: Text(l10n.theme),
             subtitle: Text(_getThemeModeText(themeMode, l10n)),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
@@ -94,7 +93,7 @@ class SettingsScreen extends ConsumerWidget {
       child: Column(
         children: [
           ListTile(
-            leading: const Icon(Icons.language, color: AppColors.primary),
+            leading: Icon(Icons.language, color: Theme.of(context).colorScheme.primary),
             title: Text(l10n.language),
             subtitle: Text(_getLanguageText(locale, l10n)),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
@@ -114,7 +113,7 @@ class SettingsScreen extends ConsumerWidget {
       child: Column(
         children: [
           ListTile(
-            leading: const Icon(Icons.logout, color: AppColors.error),
+            leading: Icon(Icons.logout, color: Theme.of(context).colorScheme.error),
             title: Text(l10n.logout),
             subtitle: Text(l10n.signOutOfAccount),
             onTap: () => _showLogoutDialog(context, ref, l10n),
@@ -124,13 +123,13 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  String _getThemeModeText(ThemeMode themeMode, AppLocalizations l10n) {
+  String _getThemeModeText(AppThemeMode themeMode, AppLocalizations l10n) {
     switch (themeMode) {
-      case ThemeMode.light:
+      case AppThemeMode.light:
         return l10n.lightMode;
-      case ThemeMode.dark:
+      case AppThemeMode.dark:
         return l10n.darkMode;
-      case ThemeMode.system:
+      case AppThemeMode.custom:
         return l10n.customMode;
     }
   }
@@ -170,39 +169,42 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    RadioListTile<ThemeMode>(
+                    RadioListTile<AppThemeMode>(
                       title: Text(l10n.lightMode),
-                      value: ThemeMode.light,
+                      value: AppThemeMode.light,
                       groupValue: themeMode,
                       onChanged: (value) {
                         if (value != null) {
+                          print('========== AppThemeMode.light');
                           ref.read(themeModeProvider.notifier).setThemeMode(value);
                         }
                       },
                     ),
-                    RadioListTile<ThemeMode>(
+                    RadioListTile<AppThemeMode>(
                       title: Text(l10n.darkMode),
-                      value: ThemeMode.dark,
+                      value: AppThemeMode.dark,
                       groupValue: themeMode,
                       onChanged: (value) {
                         if (value != null) {
+                          print('========== AppThemeMode.dark');
                           ref.read(themeModeProvider.notifier).setThemeMode(value);
                         }
                       },
                     ),
-                    RadioListTile<ThemeMode>(
+                    RadioListTile<AppThemeMode>(
                       title: Text(l10n.customMode),
-                      value: ThemeMode.system, // Sử dụng system để đánh dấu custom mode
+                      value: AppThemeMode.custom,
                       groupValue: themeMode,
                       onChanged: (value) {
                         if (value != null) {
+                          print('========== AppThemeMode.custom');
                           ref.read(themeModeProvider.notifier).setThemeMode(value);
                         }
                       },
                     ),
                 
                 // Only show color customization when custom mode is selected
-                if (themeMode == ThemeMode.system) ...[
+                if (themeMode == AppThemeMode.custom) ...[
                   const SizedBox(height: 24),
                   const Divider(),
                   const SizedBox(height: 16),
@@ -220,7 +222,7 @@ class SettingsScreen extends ConsumerWidget {
                 Text(
                   l10n.predefinedColorThemes,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.grey,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -244,7 +246,7 @@ class SettingsScreen extends ConsumerWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: isSelected ? AppColors.primary : AppColors.grey,
+                            color: isSelected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurfaceVariant,
                             width: isSelected ? 2 : 1,
                           ),
                         ),
@@ -406,10 +408,10 @@ class SettingsScreen extends ConsumerWidget {
                 }
               }
             },
-            child: Text(
-              l10n.logout,
-              style: const TextStyle(color: AppColors.error),
-            ),
+              child: Text(
+                l10n.logout,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
           ),
         ],
       ),

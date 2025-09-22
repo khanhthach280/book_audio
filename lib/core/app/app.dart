@@ -14,18 +14,18 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
-    final themeMode = ref.watch(themeModeProvider);
+    final themeMode = ref.watch(flutterThemeModeProvider);
     final locale = ref.watch(localeProvider);
-    final lightTheme = ref.watch(lightThemeDataProvider);
-    final darkTheme = ref.watch(darkThemeDataProvider);
+    final currentTheme = ref.watch(themeDataProvider);
+    final fixedDarkTheme = ref.watch(fixedDarkThemeProvider);
     
     return MaterialApp.router(
       title: 'Book Audio',
       debugShowCheckedModeBanner: false,
       
       // Theme configuration with custom colors
-      theme: lightTheme,
-      darkTheme: darkTheme,
+      theme: currentTheme,
+      darkTheme: fixedDarkTheme, // Always use fixed dark theme
       themeMode: themeMode,
       
       // Localization configuration
