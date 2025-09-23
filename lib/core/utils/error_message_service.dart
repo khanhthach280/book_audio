@@ -14,7 +14,7 @@ class ErrorMessageService {
     final l10n = _localizations;
     if (l10n == null) {
       // Fallback to English if no localization is set
-      return _getEnglishMessage(failureType);
+      return 'Localizations Failure';
     }
     
     switch (failureType) {
@@ -38,32 +38,6 @@ class ErrorMessageService {
         return l10n.error;
       default:
         return l10n.error;
-    }
-  }
-  
-  /// Get English error message as fallback
-  static String _getEnglishMessage(String failureType) {
-    switch (failureType) {
-      case 'NoInternetFailure':
-        return 'No internet connection. Please check your network.';
-      case 'NetworkFailure':
-        return 'Network error. Please try again.';
-      case 'ServerFailure':
-        return 'Server error. Please try again later.';
-      case 'TimeoutFailure':
-        return 'Request timeout. Please try again.';
-      case 'InvalidCredentialsFailure':
-        return 'Invalid credentials. Please check your login details.';
-      case 'AuthFailure':
-        return 'Authentication failed. Please try again.';
-      case 'LocalStorageFailure':
-        return 'Failed to save data locally.';
-      case 'CacheFailure':
-        return 'Failed to cache data.';
-      case 'UnknownFailure':
-        return 'An unexpected error occurred.';
-      default:
-        return 'An unexpected error occurred.';
     }
   }
 }
